@@ -1,0 +1,16 @@
+projection;
+strict ( 2 );
+
+define behavior for ZC_106_CYB_HDR alias IncidentHeader
+{
+  use create; use update; use delete;
+
+
+  use association _Logs { create; }
+}
+
+define behavior for ZC_106_CYB_ITM alias IncidentLog
+{
+  use update; use delete;
+  use association _Incident;
+}

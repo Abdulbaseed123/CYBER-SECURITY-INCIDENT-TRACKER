@@ -1,0 +1,5 @@
+@EndUserText.label: 'Service for Cyber Incident Tracker'
+define service ZUI_106_CYB_HDR {
+  expose ZC_106_CYB_HDR as IncidentHeader;
+  expose ZC_106_CYB_ITM as IncidentLog;
+}

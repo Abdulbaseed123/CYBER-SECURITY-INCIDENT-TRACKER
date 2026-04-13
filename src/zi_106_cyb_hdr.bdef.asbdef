@@ -1,0 +1,47 @@
+unmanaged implementation in class zbp_106_cyb_hdr unique;
+strict ( 2 );
+
+/* --- RULES FOR THE PARENT (HEADER) --- */
+define behavior for ZI_106_CYB_HDR alias IncidentHeader
+lock master
+authorization master ( instance )
+{
+  create; update; delete;
+
+
+  association _Logs { create; }
+
+  field ( mandatory ) IncidentID;
+
+  mapping for zz106_cyb_hdr
+  {
+    IncidentID   = inc_id;
+    IncidentDate = inc_date;
+    Reporter     = reporter;
+    Severity     = severity;
+    Status       = status;
+  }
+}
+
+/* --- RULES FOR THE CHILD (LOGS) --- */
+define behavior for ZI_106_CYB_ITM alias IncidentLog
+lock dependent by _Incident
+authorization dependent by _Incident
+{
+  update; delete;
+
+
+  association _Incident;
+
+  field ( mandatory ) LogPosition;
+  field ( readonly ) IncidentID;
+
+  mapping for zz106_cyb_itm
+  {
+    IncidentID   = inc_id;
+    LogPosition  = log_pos;
+    ActionDate   = action_date;
+    Description  = description;
+    ActionTaken  = action_taken;
+  }
+}
